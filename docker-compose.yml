@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   prometheus:
     image: prom/prometheus
@@ -8,17 +7,21 @@ services:
       - "./container-data/prometheus:/prometheus"
       - "./prometheus.yml:/etc/prometheus/prometheus.yml"
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana-oss
+    environment:
+      - GF_FEATURE_TOGGLES_ENABLE=
+      - GF_ENTERPRISE_ENABLED=false
+      - GF_ANALYTICS_REPORTING_ENABLED=false
+      - GF_ANALYTICS_CHECK_FOR_UPDATES=false
+      - GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES=false
     ports:
       - "3000:3000"
     volumes:
       - "./grafana/provisioning/datasources/:/etc/grafana/provisioning/datasources/"
       - "./grafana/provisioning/dashboards/:/etc/grafana/provisioning/dashboards/"
       - "./grafana/dashboards/:/var/lib/grafana/dashboards/"
-      - "./grafana/defaults.ini:/usr/share/grafana/conf/defaults.ini"
+      # - "./grafana/defaults.ini:/usr/share/grafana/conf/defaults.ini"
   net_test:
     build: .
     ports:
       - "2112:2112"
-  # debug:
-  #   image: alpine

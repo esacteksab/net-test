@@ -1,7 +1,9 @@
 # Net Test
-Monitors network connectivity for downtime.
 
-# Table Of Contents
+This is a fork of [catvec/net-test](https://github.com/catvec/net-test). Monitors network connectivity for downtime.
+
+## Table Of Contents
+
 - [Overview](#overview)
 - [Run](#run)
   - [Command Line Options](#command-line-options)
@@ -9,22 +11,25 @@ Monitors network connectivity for downtime.
   - [Run Manually](#run-manually)
 - [Analyse](#analyse)
 
-# Overview
+## Overview
+
 The Net Test program performs measurements and publishes the resulting metrics for Prometheus to scrape.
 
 Prometheus and Grafana Docker containers are provided setup and ready to analyse Net Test data.
 
 ![Grafana dashboard showing histogram of round trip time](./screenshot.png)
 
-# Run
+## Run
+
 The Net Test tool measures results and publishes them for Prometheus. Grafana is used to view the data.
 
 A Docker Compose setup is provided to make this process as easy as running a single command, see [Run with Docker Compose](#run-with-docker-compose).
 
 If one would like to run the setup without Docker Compose see [Run Manually](#run-manually).
 
-## Command Line Options
-The behavior of the `net-test` tool is specified using command line options. 
+### Command Line Options
+
+The behavior of the `net-test` tool is specified using command line options.
 
 The tool is configured with a list of target hosts, a host picking strategy, and a set of measurements to take.
 
@@ -46,12 +51,13 @@ Other options:
 
 - `-m string`: Host on which to serve Prometheus metrics (default ":2112")
 
-## Run with Docker Compose
+### Run with Docker Compose
+
 A Docker Compose file is provided which orchestrates the execution of Net Test, Prometheus, and Grafana.
 
 Run:
 
-```
+```bash
 docker-compose up -d
 ```
 
@@ -62,7 +68,6 @@ To customize the measurements and behavior of Net Test one must edit the Docker 
 For example this `docker-compose.custom.yml` file tells Net Test to measure `example.com` before any other target hosts, and run the ping test every second (see [Command Line Options](#command-line-options)):
 
 ```yml
-version: "3.9"
 services:
   net_test:
     command: net-test -T example.com -p 1000
@@ -70,7 +75,7 @@ services:
 
 Run your custom Docker Compose setup with the following command:
 
-```
+```bash
 docker-compose -f docker-compose.yml -f docker-compose.custom.yml up -d
 ```
 
@@ -78,14 +83,15 @@ This tells Docker Compose to look at the `docker-compose.yml` and `docker-compos
 
 This is a lot to type every time, so the helper script `custom-docker-compose` is provided to make life easier. The following is equivalent to the command above:
 
-```
+```bash
 ./custom-docker-compose up -d
 ```
 
-## Run Manually
+### Run Manually
+
 The Net Test tool is written in Go. Run it:
 
-```
+```bash
 go run main.go
 ```
 
@@ -95,10 +101,12 @@ Next run Prometheus and have it scrape the host on which you set Net Test to pub
 
 Finally run Grafana, use the configuration files provided in the `grafana/` directory.
 
-# Analyse
+## Analyse
+
 Measurements are placed in Prometheus. The following measurement types create the following metrics:
 
-**Ping (`-p <ms interval>`)**  
+**Ping (`-p <ms interval>`)**
+
 - `ping_rtt_ms` (Histogram, labels `target_host`): Round trip time to target host
 - `ping_failures_total` (Count, labels `target_host`): Incremented when a target host cannot be reached
 

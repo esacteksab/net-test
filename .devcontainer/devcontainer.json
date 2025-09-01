@@ -1,0 +1,32 @@
+{
+  "name": "my-devcontainer",
+  "image": "esacteksab/dev-container:2025-09-01-09-07",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installOhMyZshConfig": "false",
+      "configureZshAsDefaultShell": "true"
+    }
+  },
+  "mounts": [
+    "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
+    "source=myproject-zshhistory,target=/commandhistory,type=volume"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "EditorConfig.EditorConfig",
+        "casualjim.gotemplate",
+        "tamasfe.even-better-toml",
+        "golang.go",
+        "bradlc.vscode-tailwindcss",
+        "redhat.vscode-yaml",
+        "timonwong.shellcheck",
+        "emeraldwalk.RunOnSave"
+      ]
+    }
+  },
+  "postCreateCommand": "pnpm install && git config devcontainers-theme.show-dirty 1"
+}

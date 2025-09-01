@@ -1,9 +1,22 @@
-module github.com/Noah-Huppert/net-test
+module github.com/esacteksab/net-test
 
-go 1.16
+go 1.25.0
 
 require (
-	github.com/Noah-Huppert/golog v1.2.0
-	github.com/go-ping/ping v0.0.0-20210407214646-e4e642a95741
-	github.com/prometheus/client_golang v1.10.0
+	github.com/prometheus-community/pro-bing v0.7.0
+	github.com/prometheus/client_golang v1.23.0
+)
+
+require (
+	github.com/beorn7/perks v1.0.1 // indirect
+	github.com/cespare/xxhash/v2 v2.3.0 // indirect
+	github.com/google/uuid v1.6.0 // indirect
+	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
+	github.com/prometheus/client_model v0.6.2 // indirect
+	github.com/prometheus/common v0.65.0 // indirect
+	github.com/prometheus/procfs v0.17.0 // indirect
+	golang.org/x/net v0.43.0 // indirect
+	golang.org/x/sync v0.16.0 // indirect
+	golang.org/x/sys v0.35.0 // indirect
+	google.golang.org/protobuf v1.36.8 // indirect
 )

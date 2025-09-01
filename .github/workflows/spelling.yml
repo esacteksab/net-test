@@ -1,0 +1,19 @@
+name: Spell Check
+
+permissions:
+  contents: read
+
+on: [pull_request]
+
+env:
+  RUST_BACKTRACE: 1
+  CARGO_TERM_COLOR: always
+  CLICOLOR: 1
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref_name }}"
+  cancel-in-progress: true
+
+jobs:
+  typos-reusable:
+    uses: esacteksab/.github/.github/workflows/spelling.yml@3a7c51ff9b6c19256e8c13b9d8399a053daaaa30 #v0.14.0

@@ -12,3 +12,8 @@ docker-compose.custom.yml
 
 # Container data
 container-data/
+
+.mise.local.toml
+.pnpm-store/
+.node_modules/
+.venv/
